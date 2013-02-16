@@ -8,6 +8,8 @@ Author: zburnham
 Author URI: http://www.zacharyburnham.com
 License: 3-Clause BSD
 */
+use GithubBrag\GithubEvent;
+include(__DIR__ . '/GithubBrag/GithubEvent.php');
 
 class GithubBrag_Widget extends WP_Widget
 {
@@ -27,9 +29,21 @@ class GithubBrag_Widget extends WP_Widget
    }
 
 }
+
 add_action('widgets_init', 'github_brag_init');
 
 function github_brag_init()
 {
     register_widget('GithubBrag_Widget');
 }
+
+function github_brag_init_table()
+{
+    global $wpdb;
+    $prefix = $wpdb->prefix;
+    $tableName = $prefix . 'githubbrag_events';
+    
+    $sql = "CREATE TABLE ";
+}
+
+$event = new GithubEvent;
