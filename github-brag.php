@@ -6,6 +6,7 @@ Description: A plugin to provide a Github widget displaying recent activity.
 Version: 0.0.1
 Author: zburnham
 Author URI: http://www.zacharyburnham.com
+License: 3-Clause BSD
 */
 
 class GithubBrag_Widget extends WP_Widget
