@@ -9,14 +9,47 @@
 
 namespace GithubBrag;
 
+use GithubActor;
+use GithubRepo;
+use GithubPayload;
+
+
 class GithubEvent extends AbstractClass
 {
+    /**
+     * ID of event.
+     *
+     * @var string
+     */
+    protected $id;
+    
     /**
      * Event type.
      *
      * @var string
      */
     protected $type;
+    
+    /**
+     * Actor information.
+     *
+     * @var GithubActor
+     */
+    protected $actor;
+    
+    /**
+     * Repository information.
+     *
+     * @var GithubRepo
+     */
+    protected $repo;
+    
+    /**
+     * Event payload.
+     *
+     * @var GithubPayload
+     */
+    protected $payload;
     
     /**
      * Public status of event.
@@ -26,25 +59,29 @@ class GithubEvent extends AbstractClass
     protected $public;
     
     /**
-     * Event payload.
-     *
-     * @var GithubEventPayload
-     */
-    protected $payload;
-    
-    /**
      * Date of event.
      *
      * @var string
      */
     protected $created_at;
-    
+
     /**
-     * ID of event.
-     *
-     * @var string
+     * @return string
      */
-    protected $id;
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     * @return \GithubBrag\GithubEvent
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
     
     /**
      * @return string
@@ -63,7 +100,61 @@ class GithubEvent extends AbstractClass
         $this->type = $type;
         return $this;
     }
+    
+    /**
+     * @return GithubActor
+     */
+    public function getActor()
+    {
+        return $this->actor;
+    }
 
+    /**
+     * @param GithubActor $actor
+     * @return \GithubBrag\GithubEvent
+     */
+    public function setActor(GithubActor $actor)
+    {
+        $this->actor = $actor;
+        return $this;
+    }
+    
+    /**
+     * @return GithubRepo
+     */
+    public function getRepo()
+    {
+        return $this->repo;
+    }
+
+    /**
+     * @param GithubRepo $repo
+     * @return \GithubBrag\GithubEvent
+     */
+    public function setRepo(GithubRepo $repo)
+    {
+        $this->repo = $repo;
+        return $this;
+    }
+    
+    /**
+     * @return GithubPayload
+     */
+    public function getPayload()
+    {
+        return $this->payload;
+    }
+
+    /**
+     * @param GithubPayload $payload
+     * @return \GithubBrag\GithubEvent
+     */
+    public function setPayload(GithubPayload $payload)
+    {
+        $this->payload = $payload;
+        return $this;
+    }
+    
     /**
      * @return bool
      */
@@ -79,24 +170,6 @@ class GithubEvent extends AbstractClass
     public function setPublic(bool $public)
     {
         $this->public = $public;
-        return $this;
-    }
-
-    /**
-     * @return GithubEventPayload
-     */
-    public function getPayload()
-    {
-        return $this->payload;
-    }
-
-    /**
-     * @param type $payload
-     * @return \GithubBrag\GithubEvent
-     */
-    public function setPayload($payload)
-    {
-        $this->payload = $payload;
         return $this;
     }
     
@@ -115,24 +188,6 @@ class GithubEvent extends AbstractClass
     public function setCreated_at($created_at)
     {
         $this->created_at = $created_at;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     * @return \GithubBrag\GithubEvent
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
         return $this;
     }
 }
