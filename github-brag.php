@@ -8,33 +8,17 @@ Author: zburnham
 Author URI: http://www.zacharyburnham.com
 License: 3-Clause BSD
 */
-use GithubBrag\GithubEvent;
-include(__DIR__ . '/GithubBrag/GithubEvent.php');
+include('GithubBrag/GithubBragWidget.php');
 
-class GithubBrag_Widget extends WP_Widget
-{
-    /**
-     * Register widget with WordPress.
-     */
-    public function __construct()
-    {
-        parent::__construct(
-                'github-brag-widget', 'Github Brag Widget', array('description' => 'Github recent activity.')
-        );
-    }
-    
-   public function widget($args, $instance)
-   {
-       echo "Foo.";
-   }
-
-}
+include ('SplClassLoader.php');
+$autoloader = new SplClassLoader('GithubBrag', __DIR__);
+$autoloader->register();
 
 add_action('widgets_init', 'github_brag_init');
 
 function github_brag_init()
 {
-    register_widget('GithubBrag_Widget');
+    register_widget('GithubBragWidget');
 }
 
 function github_brag_init_table()
@@ -45,5 +29,3 @@ function github_brag_init_table()
     
     $sql = "CREATE TABLE ";
 }
-
-$event = new GithubEvent;
