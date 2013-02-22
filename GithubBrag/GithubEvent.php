@@ -65,6 +65,12 @@ class GithubEvent extends AbstractClass
      */
     protected $created_at;
 
+    public function __construct(array $data = array())
+    {
+        $this->setTable('event');
+        parent::__construct($data);
+    }
+    
     /**
      * @return string
      */

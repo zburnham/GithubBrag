@@ -33,6 +33,13 @@ class AbstractClass
     protected $metadata;
     
     /**
+     * Full table name with Wordpress prefix.
+     *
+     * @var string
+     */
+    protected $wpdb_table;
+    
+    /**
      * Class constructor.
      * 
      * @param array $data

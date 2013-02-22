@@ -46,6 +46,12 @@ class GithubActor extends AbstractClass
      */
     protected $avatar_url;
     
+    public function __construct(array $data = array())
+    {
+        $this->setTable('actor');
+        parent::__construct($data);
+    }
+    
     /**
      * @return string
      */

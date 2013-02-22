@@ -32,6 +32,12 @@ class GithubRepo extends AbstractClass
      */
     protected $url;
     
+    public function __construct(array $data = array())
+    {
+        $this->setTable('repo');
+        parent::__construct($data);
+    }
+    
     /**
      * @return string
      */

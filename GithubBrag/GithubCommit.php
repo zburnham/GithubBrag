@@ -46,6 +46,12 @@ class GithubCommit extends AbstractClass
      */
     protected $url;
     
+    public function __construct(array $data = array())
+    {
+        $this->setTable('commit');
+        parent::__construct($data);
+    }
+    
     /**
      * @return string
      */
