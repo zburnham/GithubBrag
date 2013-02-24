@@ -19,6 +19,13 @@ class GithubActor extends AbstractClass
     protected $id;
     
     /**
+     * Foreign key.
+     * 
+     * @var string
+     */
+    protected $event_id;
+    
+    /**
      * Login name of the actor.
      *
      * @var string
