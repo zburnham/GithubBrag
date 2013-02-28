@@ -80,6 +80,24 @@ class GithubActor extends AbstractClass
     /**
      * @return string
      */
+    public function getEvent_id()
+    {
+        return $this->event_id;
+    }
+
+    /**
+     * @param string $event_id
+     * @return \GithubBrag\GithubActor
+     */
+    public function setEvent_id($event_id)
+    {
+        $this->event_id = $event_id;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getLogin()
     {
         return $this->login;

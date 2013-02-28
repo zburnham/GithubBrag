@@ -21,7 +21,7 @@ class AbstractClass
     /**
      * WordPress database connection object.
      *
-     * @var wpdb (I guess)
+     * @var wpdb
      */
     protected $wpdb;
     
@@ -50,25 +50,6 @@ class AbstractClass
         {
             $this->hydrate($data);
         }
-    }
-    
-    /**
-     * Persist object in database.
-     * 
-     * @return void
-     */
-    public function save()
-    {
-        $vars = array_diff(get_class_vars($this), $this->getMetadata());
-        
-        $data = array();
-        foreach ($vars as $var)
-        {
-            $method = 'get' . ucfirst($var);
-            // TODO error handling here, use WP_Error if $this->$method() returns NULL?
-            $data[$var] = $this->$method();
-        }
-        $this->getWpdb()->insert($this->getTable(), $data);
     }
     
     /**

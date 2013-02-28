@@ -26,7 +26,7 @@ function github_brag_init_table()
     global $wpdb;
     $prefix = $wpdb->prefix;
     $tableName = $prefix . 'githubbrag_events';
-    
+
     $sql = "CREATE TABLE IF NOT EXISTS `" . $tableName . "` " .
             "(" .
             "`id` VARCHAR(20) NOT NULL, " .
@@ -34,70 +34,70 @@ function github_brag_init_table()
             "`public` TINYINT(1) NOT NULL, " .
             "`created_at VARCHAR(30) NOT NULL " .
             ")";
-    
+
     $wpdb->query($sql);
-    
+
     $tableName = $prefix . 'githubbrag_actors';
-    
+
     $sql = "CREATE TABLE IF NOT EXISTS `" . $tableName . "` " .
-            "(" . 
-            "`id` VARCHAR(20) NOT NULL PRIMARY KEY, " . 
-            "`event_id` VARCHAR(20) NOT NULL, " . 
-            "`event_id` VARCHAR(20) NOT NULL, " . 
-            "`login` VARCHAR(50) NOT NULL, " . 
-            "`gravatar_id` VARCHAR(50), " . 
-            "`url` VARCHAR(200) NOT NULL " . 
-            ")";
-    
-    $wpdb->query($sql);
-    
-    $tableName = $prefix . "githubbrag_repos";
-    
-    $sql = "CREATE TABLE IF NOT EXISTS `" . $tableName . "` " . 
-            "(" . 
-            "`id` VARCHAR(20) NOT NULL PRIMARY KEY, " . 
-            "`event_id` VARCHAR(20) NOT NULL, " . 
-            "`name` VARCHAR(100) NOT NULL, " . 
-            "`url` VARCHAR(200) NOT NULL " . 
-            ")";
-            
-    $wpdb->query($sql);
-    
-    $tableName = $prefix . "githubbrag_payloads";
-    
-    $sql = "CREATE TABLE IF NOT EXISTS `" . $tableName . "` " . 
-            "(" . 
-            "`push_id` VARCHAR(20) NOT NULL PRIMARY KEY, " . 
-            "`size` VARCHAR(5), " . 
-            "`distinct_size` VARCHAR(5), " . 
-            "`ref` VARCHAR(100) NOT NULL, " . 
-            "`head` VARCHAR(50) NOT NULL, " . 
-            "`before` VARCHAR(50) NOT NULL " . 
-            ")";
-    
-    $wpdb->query($sql);
-    
-    $tableName = $prefix . "githubbrag_commits";
-    
-    $sql = "CREATE TABLE IF NOT EXISTS `" . $tableName . "` " . 
-            "(" . 
-            "`sha` VARCHAR(50) NOT NULL PRIMARY KEY, " . 
-            "`message` VARCHAR(50) NOT NULL, " . 
-            "`distinct` TINYINT(1), " . 
-            "`url` VARCHAR(200)" . 
-            ")";
-    
-    $wpdb->query($sql);
-    
-    $tableName = $prefix . "githubbrag_authors";
-    
-    $sql = "CREATE TABLE IF NOT EXISTS `" . $tableName . "` " . 
             "(" .
-            "`commit_id` VARCHAR(20) NOT NULL, " . 
-            "`email` VARCHAR(100), " . 
-            "`name` VARCHAR(100) " . 
+            "`id` VARCHAR(20) NOT NULL PRIMARY KEY, " .
+            "`event_id` VARCHAR(20) NOT NULL, " .
+            "`login` VARCHAR(50) NOT NULL, " .
+            "`gravatar_id` VARCHAR(50), " .
+            "`url` VARCHAR(200) NOT NULL " .
             ")";
-    
+
     $wpdb->query($sql);
-    
-    }
+
+    $tableName = $prefix . "githubbrag_repos";
+
+    $sql = "CREATE TABLE IF NOT EXISTS `" . $tableName . "` " .
+            "(" .
+            "`id` VARCHAR(20) NOT NULL PRIMARY KEY, " .
+            "`event_id` VARCHAR(20) NOT NULL, " .
+            "`name` VARCHAR(100) NOT NULL, " .
+            "`url` VARCHAR(200) NOT NULL " .
+            ")";
+
+    $wpdb->query($sql);
+
+    $tableName = $prefix . "githubbrag_payloads";
+
+    $sql = "CREATE TABLE IF NOT EXISTS `" . $tableName . "` " .
+            "(" .
+            "`push_id` VARCHAR(20) NOT NULL PRIMARY KEY, " .
+            "`event_id` VARCHAR(20) NOT NULL, " . 
+            "`size` VARCHAR(5), " .
+            "`distinct_size` VARCHAR(5), " .
+            "`ref` VARCHAR(100) NOT NULL, " .
+            "`head` VARCHAR(50) NOT NULL, " .
+            "`before` VARCHAR(50) NOT NULL " .
+            ")";
+
+    $wpdb->query($sql);
+
+    $tableName = $prefix . "githubbrag_commits";
+
+    $sql = "CREATE TABLE IF NOT EXISTS `" . $tableName . "` " .
+            "(" .
+            "`sha` VARCHAR(50) NOT NULL PRIMARY KEY, " .
+            "`push_id` VARCHAR(20) NOT NULL, " .
+            "`message` VARCHAR(50) NOT NULL, " .
+            "`distinct` TINYINT(1), " .
+            "`url` VARCHAR(200)" .
+            ")";
+
+    $wpdb->query($sql);
+
+    $tableName = $prefix . "githubbrag_authors";
+
+    $sql = "CREATE TABLE IF NOT EXISTS `" . $tableName . "` " .
+            "(" .
+            "`sha` VARCHAR(50) NOT NULL, " .
+            "`email` VARCHAR(100), " .
+            "`name` VARCHAR(100) " .
+            ")";
+
+    $wpdb->query($sql);
+}

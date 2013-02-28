@@ -21,6 +21,13 @@ class GithubPayload extends AbstractClass
     protected $push_id;
     
     /**
+     * Foreign key.
+     *
+     * @var string
+     */
+    protected $event_id;
+    
+    /**
      * The number of commits in the push.
      *
      * @var int
@@ -85,7 +92,26 @@ class GithubPayload extends AbstractClass
         $this->push_id = $push_id;
         return $this;
     }
+    
+    /**
+     * @return string
+     */
+    public function getEvent_id()
+    {
+        return $this->event_id;
+    }
 
+    /**
+     * @param string $event_id
+     * @return \GithubBrag\GithubPayload
+     */
+    public function setEvent_id($event_id)
+    {
+        $this->event_id = $event_id;
+        return $this;
+    }
+
+    
     /**
      * @return int
      */

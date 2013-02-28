@@ -16,7 +16,7 @@ class GithubAuthor extends AbstractClass
      *
      * @var string
      */
-    protected $commit_id;
+    protected $sha;
     
     /**
      * Email of the author.
@@ -35,18 +35,18 @@ class GithubAuthor extends AbstractClass
     /**
      * @return string
      */
-    public function getCommit_id()
+    public function getSha()
     {
-        return $this->commit_id;
+        return $this->sha;
     }
 
     /**
-     * @param string $commit_id
+     * @param string $sha
      * @return \Githubbrag\GithubAuthor
      */
-    public function setCommit_id($commit_id)
+    public function setSha($sha)
     {
-        $this->commit_id = $commit_id;
+        $this->sha = $sha;
         return $this;
     }
 

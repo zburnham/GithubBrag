@@ -19,6 +19,13 @@ class GithubCommit extends AbstractClass
     protected $sha;
     
     /**
+     * Foreign key.
+     *
+     * @var string
+     */
+    protected $push_id;
+    
+    /**
      * The git author of the commit.
      *
      * @var GithubAuthor

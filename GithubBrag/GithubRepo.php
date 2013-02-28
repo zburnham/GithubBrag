@@ -19,6 +19,13 @@ class GithubRepo extends AbstractClass
     protected $id;
     
     /**
+     * Foreign key.
+     *
+     * @var string
+     */
+    protected $event_id;
+    
+    /**
      * Name of the repository, in :user/:repo format.
      *
      * @var string
@@ -32,6 +39,12 @@ class GithubRepo extends AbstractClass
      */
     protected $url;
     
+    /**
+     * Class constructor.  Optional $data argument is an array of property
+     * values.
+     * 
+     * @param array $data
+     */
     public function __construct(array $data = array())
     {
         $this->setTable('repo');
@@ -55,7 +68,27 @@ class GithubRepo extends AbstractClass
         $this->id = $id;
         return $this;
     }
+    
+    /**
+     * @return string
+     */
+    public function getEvent_id()
+    {
+        return $this->event_id;
+    }
 
+    /**
+     * 
+     * @param string $event_id
+     * @return \GithubBrag\GithubRepo
+     */
+    public function setEvent_id($event_id)
+    {
+        $this->event_id = $event_id;
+        return $this;
+    }
+
+    
     /**
      * @return string
      */

@@ -9,11 +9,6 @@
 
 namespace GithubBrag;
 
-use GithubActor;
-use GithubRepo;
-use GithubPayload;
-
-
 class GithubEvent extends AbstractClass
 {
     /**
@@ -71,6 +66,29 @@ class GithubEvent extends AbstractClass
         parent::__construct($data);
     }
     
+    public function save()
+    {
+        $data = array();
+        $columns = array(
+            'created_at',
+            'id',
+            'public',
+            'type',
+            );
+        foreach ($columns as $column) {
+            $method = 'get' . ucfirst($column);
+            if (NULL == $this->$method()) {
+                throw new \Exception($column . " is not set.");
+            }
+            $data[$column] = $this->$method();
+        }
+        $this->getWpdb()->insert($this->getTable(), $data);
+        $event_id = $this->getId();
+        $this->getActor()->setEvent_id($event_id)->save();
+        $this->getRepo()->setEvent_id($event_id)->save();
+        $this->getPayload()->setEvent_id($event_id)->save();
+    }
+    
     /**
      * @return string
      */
@@ -116,12 +134,12 @@ class GithubEvent extends AbstractClass
     }
 
     /**
-     * @param GithubActor $actor
+     * @param array $actor
      * @return \GithubBrag\GithubEvent
      */
-    public function setActor(GithubActor $actor)
+    public function setActor(array $actorDefinition)
     {
-        $this->actor = $actor;
+        $this->actor = new GithubActor($actorDefinition);
         return $this;
     }
     
@@ -134,12 +152,12 @@ class GithubEvent extends AbstractClass
     }
 
     /**
-     * @param GithubRepo $repo
+     * @param array $repo
      * @return \GithubBrag\GithubEvent
      */
-    public function setRepo(GithubRepo $repo)
+    public function setRepo(array $repoDefinition)
     {
-        $this->repo = $repo;
+        $this->repo = new GithubRepo($repoDefinition);
         return $this;
     }
     
@@ -152,12 +170,12 @@ class GithubEvent extends AbstractClass
     }
 
     /**
-     * @param GithubPayload $payload
+     * @param array $payload
      * @return \GithubBrag\GithubEvent
      */
-    public function setPayload(GithubPayload $payload)
+    public function setPayload(array $payloadDefinition)
     {
-        $this->payload = $payload;
+        $this->payload = new GithubPayload($payloadDefinition);
         return $this;
     }
     
