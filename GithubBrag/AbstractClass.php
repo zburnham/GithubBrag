@@ -40,6 +40,20 @@ class AbstractClass
     protected $wpdb_table;
     
     /**
+     * Columns to save data to in database.
+     *
+     * @var array
+     */
+    protected $columns;
+    
+    /**
+     * Names of child objects.
+     * 
+     * @var array
+     */
+    protected $children;
+    
+    /**
      * Class constructor.
      * 
      * @param array $data
@@ -49,6 +63,31 @@ class AbstractClass
         if (count($data))
         {
             $this->hydrate($data);
+        }
+    }
+    
+    /**
+     * Persists the object and all child objects.
+     * 
+     * @throws \Exception
+     */
+    public function save()
+    {
+        $data = array();
+        $columns = $this->getColumns();
+        foreach ($columns as $column) {
+            $method = 'get' . ucfirst($column);
+            if (NULL == $this->$method()) {
+                throw new \Exception($column . ' is not set.');
+            }
+            $data[$column] = $this->$method();
+        }
+        $this->getWpdb()->insert($this->getTable(), $data);
+        
+        $children = $this->getChildren();
+        foreach ($children as $child)
+        {
+            $child->save();
         }
     }
     
@@ -69,16 +108,20 @@ class AbstractClass
     }
     
     /**
-     * Populate the object properties.
+     * Populate the object properties and child objects.
      * 
      * @param array $data
      */
     public function hydrate(array $data)
     {
-        foreach($data as $key => $value) 
-        {
+        foreach($data as $key => $value) {
             $method = 'set' . ucfirst($key);
-            $this->$method($value);
+            if (is_array($value)) {
+                $class = 'Github' . ucfirst($key);
+                $this->$method(new $class($value));
+            } else {
+                $this->$method($value);
+            }
         }
     }
     
@@ -142,5 +185,25 @@ class AbstractClass
     {
         $this->metadata = $metadata;
         return $this;
+    }
+
+    public function getColumns()
+    {
+        return $this->columns;
+    }
+
+    public function setColumns($columns)
+    {
+        $this->columns = $columns;
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    public function setChildren($children)
+    {
+        $this->children = $children;
     }
 }

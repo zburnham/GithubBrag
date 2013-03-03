@@ -53,10 +53,36 @@ class GithubActor extends AbstractClass
      */
     protected $avatar_url;
     
+    /**
+     * Class constructor.  Optionally populates properties with a supplied data
+     * array.
+     * 
+     * @param array $data
+     */
     public function __construct(array $data = array())
     {
         $this->setTable('actor');
         parent::__construct($data);
+    }
+    
+    public function save()
+    {
+        $data = array();
+        $columns = array(
+            'id',
+            'event_id',
+            'login',
+            'gravatar_id',
+            'url',
+        );
+        foreach ($columns as $column) {
+            $method = 'get' . ucfirst($column);
+            if (NULL == $this->$method()) {
+                throw new \Exception($column . ' is not set.');
+            }
+            $data[$column] = $this->$method();
+        }
+        $this->getWpdb()->insert($this->getTable(), $data);
     }
     
     /**

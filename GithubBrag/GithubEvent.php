@@ -59,34 +59,39 @@ class GithubEvent extends AbstractClass
      * @var string
      */
     protected $created_at;
+    
+    /**
+     * Columns to save data into.
+     *
+     * @var array
+     */
+    protected $columns = array(
+        'created_at',
+        'id', 
+        'public',
+        'type',
+    );
+    
+    /**
+     * Child objects.
+     *
+     * @var array
+     */
+    protected $children = array(
+        'actor',
+        'repo',
+        'payload',
+    );
 
+    /**
+     * Class constructor.
+     * 
+     * @param array $data
+     */
     public function __construct(array $data = array())
     {
         $this->setTable('event');
         parent::__construct($data);
-    }
-    
-    public function save()
-    {
-        $data = array();
-        $columns = array(
-            'created_at',
-            'id',
-            'public',
-            'type',
-            );
-        foreach ($columns as $column) {
-            $method = 'get' . ucfirst($column);
-            if (NULL == $this->$method()) {
-                throw new \Exception($column . " is not set.");
-            }
-            $data[$column] = $this->$method();
-        }
-        $this->getWpdb()->insert($this->getTable(), $data);
-        $event_id = $this->getId();
-        $this->getActor()->setEvent_id($event_id)->save();
-        $this->getRepo()->setEvent_id($event_id)->save();
-        $this->getPayload()->setEvent_id($event_id)->save();
     }
     
     /**
