@@ -15,6 +15,9 @@ include ('SplClassLoader.php');
 $autoloader = new SplClassLoader('GithubBrag', __DIR__);
 $autoloader->register();
 
+$a = new GithubBrag\GithubActor;
+die(var_dump($a));
+
 include(__DIR__ . '/../../../wp-admin/includes/upgrade.php');
 
 register_activation_hook(__FILE__, 'githubbrag_install');

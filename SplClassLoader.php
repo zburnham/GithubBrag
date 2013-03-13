@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PSR-0 compliant autoloader class.
  * Not even close to being mine.  Thanks to the authors in the following comment 

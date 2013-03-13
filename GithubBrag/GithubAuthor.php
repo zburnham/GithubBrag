@@ -7,7 +7,7 @@
  * @version 0.0.1
  */
 
-namespace Githubbrag;
+namespace GithubBrag;
 
 class GithubAuthor extends AbstractClass
 {
