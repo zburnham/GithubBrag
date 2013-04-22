@@ -56,14 +56,11 @@ class AbstractClass
     /**
      * Class constructor.
      * 
-     * @param array $data
+     * @param array|stdClass $data
      */
-    public function __construct(array $data = array())
+    public function __construct($data = NULL)
     {
-        if (count($data))
-        {
-            $this->hydrate($data);
-        }
+        $this->hydrate($data);
     }
     
     /**
@@ -112,15 +109,27 @@ class AbstractClass
      * 
      * @param array $data
      */
-    public function hydrate(array $data)
+    public function hydrate($data)
     {
-        foreach($data as $key => $value) {
-            $method = 'set' . ucfirst($key);
-            if (is_array($value)) {
-                $class = 'Github' . ucfirst($key);
-                $this->$method(new $class($value));
-            } else {
-                $this->$method($value);
+        if (is_object($data)) {
+            $data = get_object_vars($data);
+        }
+        if (is_array($data)) {
+            foreach($data as $key => $value) {
+                $method = 'set' . ucfirst($key);
+                if (is_object($value)) {
+                    $class = __NAMESPACE__ . '\Github' . ucfirst($key);
+                    $this->$method(new $class($value));
+                } else if (is_array($value)) {
+                    $class = __NAMESPACE__ . '\Github' . ucfirst(substr($key, 0, (strlen($key) - 1)));
+                    $$entries = array();
+                    foreach($value as $k => $v) {
+                        $entries[] = new $class($v);
+                    }
+                    $this->$method($entries);
+                } else {
+                    $this->$method($value);
+                }
             }
         }
     }

@@ -43,9 +43,9 @@ class GithubRepo extends AbstractClass
      * Class constructor.  Optional $data argument is an array of property
      * values.
      * 
-     * @param array $data
+     * @param array|stdClass $data
      */
-    public function __construct(array $data = array())
+    public function __construct($data = NULL)
     {
         $this->setTable('repo');
         parent::__construct($data);

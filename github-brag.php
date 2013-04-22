@@ -8,17 +8,26 @@ Author: zburnham
 Author URI: http://www.zacharyburnham.com
 License: 3-Clause BSD
 */
+
+namespace GithubBrag;
+
 include('GithubBrag/GithubBragWidget.php');
 include('includes/github-brag-admin.php');
 
 include ('SplClassLoader.php');
-$autoloader = new SplClassLoader('GithubBrag', __DIR__);
+$autoloader = new \SplClassLoader('GithubBrag', __DIR__);
 $autoloader->register();
 
-$a = new GithubBrag\GithubActor;
-die(var_dump($a));
+$a = new GithubActor;
 
 include(__DIR__ . '/../../../wp-admin/includes/upgrade.php');
+
+$data = include(__DIR__ . '/../../../decodeanddumpjson.php');
+$events = array();
+foreach ($data as $key => $value) {
+    $events[] = new GithubEvent($value);
+}
+die(var_dump($events));
 
 register_activation_hook(__FILE__, 'githubbrag_install');
 
@@ -30,9 +39,16 @@ function githubbrag_install()
     add_option('githubbrag_version', $githubbrag_version);
 }
 
+add_action('widgets_init', 'github_brag_init');
 function github_brag_init()
 {
     register_widget('GithubBragWidget');
+    
+    //get username from db
+    //make curl request to github
+    //check for new events?  Save any new ones to db
+    //create new Event objects
+    //
 }
 
 function github_brag_init_table()

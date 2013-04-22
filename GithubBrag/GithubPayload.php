@@ -69,7 +69,12 @@ class GithubPayload extends AbstractClass
      */
     protected $commits;
     
-    public function __construct(array $data = array())
+    /**
+     * Class constructor.
+     * 
+     * @param string|stdClass $data
+     */
+    public function __construct($data = NULL)
     {
         $this->setTable('payload');
         parent::__construct($data);

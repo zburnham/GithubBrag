@@ -53,7 +53,12 @@ class GithubCommit extends AbstractClass
      */
     protected $url;
     
-    public function __construct(array $data = array())
+    /**
+     * Class construcutor.
+     * 
+     * @param array|stdClass $data
+     */
+    public function __construct($data = NULL)
     {
         $this->setTable('commit');
         parent::__construct($data);
@@ -125,7 +130,7 @@ class GithubCommit extends AbstractClass
      * @param bool $distinct
      * @return \GithubBrag\GithubCommit
      */
-    public function setDistinct(bool $distinct)
+    public function setDistinct($distinct)
     {
         $this->distinct = $distinct;
         return $this;

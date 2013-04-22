@@ -86,9 +86,9 @@ class GithubEvent extends AbstractClass
     /**
      * Class constructor.
      * 
-     * @param array $data
+     * @param array|stdClass $data
      */
-    public function __construct(array $data = array())
+    public function __construct($data)
     {
         $this->setTable('event');
         parent::__construct($data);
@@ -142,9 +142,9 @@ class GithubEvent extends AbstractClass
      * @param array $actor
      * @return \GithubBrag\GithubEvent
      */
-    public function setActor(array $actorDefinition)
+    public function setActor($actor)
     {
-        $this->actor = new GithubActor($actorDefinition);
+        $this->actor = $actor;
         return $this;
     }
     
@@ -157,12 +157,12 @@ class GithubEvent extends AbstractClass
     }
 
     /**
-     * @param array $repo
+     * @param GithubRepo $repo
      * @return \GithubBrag\GithubEvent
      */
-    public function setRepo(array $repoDefinition)
+    public function setRepo(GithubRepo $repo)
     {
-        $this->repo = new GithubRepo($repoDefinition);
+        $this->repo = $repo;
         return $this;
     }
     
@@ -178,9 +178,9 @@ class GithubEvent extends AbstractClass
      * @param array $payload
      * @return \GithubBrag\GithubEvent
      */
-    public function setPayload(array $payloadDefinition)
+    public function setPayload($payload)
     {
-        $this->payload = new GithubPayload($payloadDefinition);
+        $this->payload = $payload;
         return $this;
     }
     
@@ -196,7 +196,7 @@ class GithubEvent extends AbstractClass
      * @param bool $public
      * @return \GithubBrag\GithubEvent
      */
-    public function setPublic(bool $public)
+    public function setPublic($public)
     {
         $this->public = $public;
         return $this;

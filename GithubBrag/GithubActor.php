@@ -8,8 +8,8 @@
  */
 
 namespace GithubBrag;
-
-class GithubActor extends AbstractClass
+    
+class GithubActor extends \GithubBrag\AbstractClass
 {
     /**
      * Unique ID.
@@ -57,9 +57,9 @@ class GithubActor extends AbstractClass
      * Class constructor.  Optionally populates properties with a supplied data
      * array.
      * 
-     * @param array $data
+     * @param array|stdClass $data
      */
-    public function __construct(array $data = array())
+    public function __construct($data = NULL)
     {
         $this->setTable('actor');
         parent::__construct($data);
