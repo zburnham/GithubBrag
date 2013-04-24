@@ -117,21 +117,29 @@ class AbstractClass
         if (is_array($data)) {
             foreach($data as $key => $value) {
                 $method = 'set' . ucfirst($key);
-                if (is_object($value)) {
-                    $class = __NAMESPACE__ . '\Github' . ucfirst($key);
-                    $this->$method(new $class($value));
-                } else if (is_array($value)) {
-                    $class = __NAMESPACE__ . '\Github' . ucfirst(substr($key, 0, (strlen($key) - 1)));
-                    $$entries = array();
-                    foreach($value as $k => $v) {
-                        $entries[] = new $class($v);
+                if ('payload' == $key) {
+                    $class = __NAMESPACE__ . '\Payload\\' . $data['type'];
+                }
+                if (method_exists($this, $method)) {
+                    if (is_object($value)) {
+                        $class = __NAMESPACE__ . '\Github' . ucfirst($key);
+                        $this->$method(new $class($value));
+                    } else if (is_array($value)) {
+                        $class = __NAMESPACE__ . '\Github' . ucfirst(substr($key, 0, (strlen($key) - 1)));
+                        $$entries = array();
+                        foreach($value as $k => $v) {
+                            $entries[] = new $class($v);
+                        }
+                        $this->$method($entries);
+                    } else {
+                        $this->$method($value);
                     }
-                    $this->$method($entries);
-                } else {
-                    $this->$method($value);
                 }
             }
+        } else {
+            throw new \Exception('Unrecognized data.');
         }
+        
     }
     
     /**

@@ -10,14 +10,7 @@
 namespace GithubBrag;
 
 class GithubAuthor extends AbstractClass
-{
-    /**
-     * Foreign key.
-     *
-     * @var string
-     */
-    protected $sha;
-    
+{   
     /**
      * Email of the author.
      *
@@ -30,25 +23,7 @@ class GithubAuthor extends AbstractClass
      *
      * @var string
      */
-    protected $name; 
-    
-    /**
-     * @return string
-     */
-    public function getSha()
-    {
-        return $this->sha;
-    }
-
-    /**
-     * @param string $sha
-     * @return \Githubbrag\GithubAuthor
-     */
-    public function setSha($sha)
-    {
-        $this->sha = $sha;
-        return $this;
-    }
+    protected $name;
 
     /**
      * @return string

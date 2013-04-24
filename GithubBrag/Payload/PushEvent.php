@@ -7,11 +7,11 @@
  * @version 0.0.1
  */
 
-namespace GithubBrag;
+namespace GithubBrag\Payloads;
 
 use GithubCommit;
 
-class GithubPayload extends AbstractClass
+class PushEvent extends AbstractClass
 {
     /**
      * Unique id for the push in question.
