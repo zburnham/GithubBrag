@@ -7,9 +7,10 @@
  * @version 0.0.1
  */
 
-namespace GithubBrag\Payloads;
+namespace GithubBrag\Payload;
 
-use GithubCommit;
+use GithubBrag\AbstractClass;
+use GithubBrag\GithubCommit;
 
 class PushEvent extends AbstractClass
 {
